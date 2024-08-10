@@ -17,9 +17,9 @@ class SendEmailWorkflowImpl : SendEmailWorkflow {
 
     private val activities = Workflow.newActivityStub(
         SendEmailActivities::class.java,
-        ActivityOptions.newBuilder()
-            .setStartToCloseTimeout(10.seconds.toJavaDuration())
-            .build()
+        ActivityOptions {
+            setStartToCloseTimeout(10.seconds.toJavaDuration())
+        }
     )
 
     override fun run(data: WorkflowData) {

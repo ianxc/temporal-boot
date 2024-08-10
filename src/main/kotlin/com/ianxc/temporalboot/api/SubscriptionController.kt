@@ -25,10 +25,10 @@ class SubscriptionController {
 
     @PostMapping("/create", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun subscribe(@RequestBody data: WorkflowData): Message {
-        val options = WorkflowOptions.newBuilder()
-            .setWorkflowId(data.email)
-            .setTaskQueue(Constants.TASK_QUEUE_NAME)
-            .build()
+        val options = WorkflowOptions {
+            setWorkflowId(data.email)
+            setTaskQueue(Constants.TASK_QUEUE_NAME)
+        }
 
         val workflow = client.newWorkflowStub(SendEmailWorkflow::class.java, options)
         WorkflowClient.start(workflow::run, data)
