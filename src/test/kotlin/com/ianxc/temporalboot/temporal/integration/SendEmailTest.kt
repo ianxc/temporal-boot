@@ -68,8 +68,12 @@ class SendEmailTest {
         @RegisterExtension
         val testWorkflowExtension: TestWorkflowExtension = TestWorkflowExtension.newBuilder()
             .registerWorkflowImplementationTypes(SendEmailWorkflowImpl::class.java)
-            .setWorkflowClientOptions(WorkflowClientOptions { setDataConverter(TemporalConfig().dataConverter()) })
             .setDoNotStart(true)
+            .setWorkflowClientOptions(
+                WorkflowClientOptions.newBuilder()
+                    .setDataConverter(TemporalConfig().dataConverter())
+                    .build()
+            )
             .build()
     }
 }
