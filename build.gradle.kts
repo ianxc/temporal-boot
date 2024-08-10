@@ -40,6 +40,12 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    constraints {
+        implementation("com.google.guava:guava:33.2.1-jre") {
+            because("version pulled from temporal-spring-boot-starter includes outdated version")
+        }
+    }
 }
 
 kotlin {

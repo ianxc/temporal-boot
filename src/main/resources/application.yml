@@ -1,3 +1,14 @@
 spring:
   application:
     name: temporal-boot
+  temporal:
+    namespace: default
+    connection:
+      target: localhost:7233
+    workers:
+      - name: send-email-worker
+        task-queue: email_subscription
+    workers-auto-discovery:
+      packages:
+        - com.ianxc.temporalboot.temporal.activities
+        - com.ianxc.temporalboot.temporal.workflows
