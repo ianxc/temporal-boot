@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class HelloController {
-    private val logger = LoggerFactory.getLogger(HelloController::class.java)
+    private val logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/hello/{name}")
     fun hello(@PathVariable name: String): String {
