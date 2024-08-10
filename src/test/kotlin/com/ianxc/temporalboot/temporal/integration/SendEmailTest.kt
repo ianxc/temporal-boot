@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.extension.RegisterExtension
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
+import strikt.assertions.isTrue
 import java.util.concurrent.TimeUnit
 
 class SendEmailTest {
@@ -62,7 +63,10 @@ class SendEmailTest {
         val details = workflow.details()
 
         // Assert
-        expectThat(details.email).isEqualTo("test@example.com")
+        expectThat(details) {
+            get { email }.isEqualTo("test@example.com")
+            get { subscribed }.isTrue()
+        }
     }
 
     companion object {
