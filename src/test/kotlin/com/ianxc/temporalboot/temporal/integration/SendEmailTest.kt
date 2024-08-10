@@ -55,9 +55,10 @@ class SendEmailTest {
         worker.registerActivitiesImplementations(SendEmailActivitiesImpl())
         testEnv.start()
         val data = WorkflowData("test@example.com")
-        val execution = WorkflowClient.start(workflow::run, data)
+        WorkflowClient.start(workflow::run, data)
 
         // Act
+        // N.B. this will block.
         val details = workflow.details()
 
         // Assert
@@ -66,6 +67,7 @@ class SendEmailTest {
 
     companion object {
         @RegisterExtension
+        @Suppress("unused")
         val testWorkflowExtension: TestWorkflowExtension = TestWorkflowExtension.newBuilder()
             .registerWorkflowImplementationTypes(SendEmailWorkflowImpl::class.java)
             .setDoNotStart(true)
