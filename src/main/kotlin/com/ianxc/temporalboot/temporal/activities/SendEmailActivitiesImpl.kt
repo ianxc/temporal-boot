@@ -15,6 +15,6 @@ class SendEmailActivitiesImpl : SendEmailActivities {
         logger.atInfo()
             .addKeyValue("email", emailDetails.email)
             .addKeyValue("message", emailDetails.message)
-            .log("sending email")
+            .log("sending email {} {}", emailDetails.email, emailDetails.message)
     }
 }

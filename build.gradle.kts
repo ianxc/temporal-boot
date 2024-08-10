@@ -31,6 +31,7 @@ dependencies {
     implementation("io.micrometer:micrometer-tracing-bridge-brave")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("io.temporal:temporal-spring-boot-starter:1.24.3")
+    implementation("io.temporal:temporal-kotlin:1.24.3")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
@@ -38,6 +39,11 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation(platform("io.strikt:strikt-bom:0.35.1"))
+    testImplementation("io.strikt:strikt-jackson")
+    testImplementation("io.strikt:strikt-jvm")
+    testImplementation("io.strikt:strikt-spring")
+
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 

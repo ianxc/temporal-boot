@@ -14,5 +14,3 @@ interface SendEmailWorkflow {
     @QueryMethod
     fun details(): EmailDetails
 }
-
-
