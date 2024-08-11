@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
-@ActivityImpl(workers = [Constants.WORKER_NAME])
+@ActivityImpl(workers = [Constants.EMAIL_WORKER_NAME])
 class SendEmailActivitiesImpl : SendEmailActivities {
     private val logger = LoggerFactory.getLogger(this::class.java)
 

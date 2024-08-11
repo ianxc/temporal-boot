@@ -27,7 +27,7 @@ class SubscriptionController {
     fun subscribe(@RequestBody data: WorkflowData): Message {
         val options = WorkflowOptions {
             setWorkflowId(data.email)
-            setTaskQueue(Constants.TASK_QUEUE_NAME)
+            setTaskQueue(Constants.EMAIL_TASK_QUEUE_NAME)
         }
 
         val workflow = client.newWorkflowStub(SendEmailWorkflow::class.java, options)

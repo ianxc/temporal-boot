@@ -11,7 +11,7 @@ import io.temporal.workflow.Workflow
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
 
-@WorkflowImpl(workers = [Constants.WORKER_NAME])
+@WorkflowImpl(workers = [Constants.EMAIL_WORKER_NAME])
 class SendEmailWorkflowImpl : SendEmailWorkflow {
     private lateinit var emailDetails: EmailDetails
 

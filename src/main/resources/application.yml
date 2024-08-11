@@ -8,6 +8,8 @@ spring:
     workers:
       - name: send-email-worker
         task-queue: email_subscription
+      - name: hello-worker
+        task-queue: hello
     workers-auto-discovery:
       packages:
         - com.ianxc.temporalboot.temporal.activities

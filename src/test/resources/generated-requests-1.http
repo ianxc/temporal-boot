@@ -1,4 +1,7 @@
 ###
+@email = zzz@gmail.com
+
+###
 GET http://localhost:8080/hello/zzz
 
 <> 2024-08-10T222922.200.txt
@@ -34,7 +37,7 @@ POST http://localhost:8080/subscription/create
 Content-Type: application/json
 
 {
-  "email": "zzz@gmail.com"
+  "email": "{{email}}"
 }
 
 <> 2024-08-11T000445.200.json
@@ -52,7 +55,7 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/subscription/details?
-    email=zzz@gmail.com
+    email={{email}}
 
 <> 2024-08-11T000011.200.json
 <> 2024-08-10T222118.200.json
@@ -62,7 +65,7 @@ POST http://localhost:8080/subscription/delete
 Content-Type: application/json
 
 {
-  "email": "zzz@gmail.com"
+  "email": "{{email}}"
 }
 
 <> 2024-08-11T000447.200.json
