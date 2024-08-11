@@ -92,10 +92,10 @@ class HelloController {
             "Scheduled hello for $name every $seconds seconds"
         } catch (e: ScheduleAlreadyRunningException) {
             val scheduleHandle = scheduleClient.getHandle("hello-schedule-$name")
-            // Don't bother with input as we want to replace the
+            // Don't bother with input as we want to replace the existing schedule.
             scheduleHandle.update { scheduleUpdateInput ->
                 check(scheduleUpdateInput.description.id == "hello-schedule-$name") {
-                    "schedule names should match"
+                    "schedule ids should match"
                 }
                 ScheduleUpdate(schedule)
             }
