@@ -10,6 +10,7 @@ import io.temporal.client.schedules.ScheduleActionStartWorkflow
 import io.temporal.client.schedules.ScheduleAlreadyRunningException
 import io.temporal.client.schedules.ScheduleClient
 import io.temporal.client.schedules.ScheduleException
+import io.temporal.client.schedules.ScheduleIntervalSpec
 import io.temporal.client.schedules.ScheduleOptions
 import io.temporal.client.schedules.SchedulePolicy
 import io.temporal.client.schedules.ScheduleSpec
@@ -69,8 +70,8 @@ class HelloController {
             )
             .setSpec(
                 ScheduleSpec.newBuilder()
-                    .setCronExpressions(listOf("5 3,9,15,21 * * *"))
-                    .setJitter(1.seconds.toJavaDuration())
+                    .setIntervals(listOf(ScheduleIntervalSpec(seconds.seconds.toJavaDuration())))
+                    .setJitter(3.seconds.toJavaDuration())
                     .build()
             )
             .setPolicy(

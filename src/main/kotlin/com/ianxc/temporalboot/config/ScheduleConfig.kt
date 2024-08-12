@@ -10,6 +10,6 @@ class ScheduleConfig {
 }
 
 data class HelloScheduleSpec(
-    private val name: String,
-    private val cron: String
+    val name: String,
+    val cron: String
 )
