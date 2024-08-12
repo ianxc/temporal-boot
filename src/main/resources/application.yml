@@ -14,3 +14,9 @@ spring:
       packages:
         - com.ianxc.temporalboot.temporal.activities
         - com.ianxc.temporalboot.temporal.workflows
+
+app:
+  schedules:
+    hello:
+      - name: bob
+        cron: "6 4,10,16,22 * * *"
