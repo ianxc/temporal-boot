@@ -9,7 +9,4 @@ class ScheduleConfig {
     lateinit var hello: List<HelloScheduleSpec>
 }
 
-data class HelloScheduleSpec(
-    val name: String,
-    val cron: String
-)
+data class HelloScheduleSpec(val name: String, val cron: String)

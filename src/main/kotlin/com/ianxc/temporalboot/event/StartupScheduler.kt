@@ -12,17 +12,13 @@ import org.springframework.stereotype.Component
 class StartupScheduler {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
-    @Autowired
-    private lateinit var scheduleConfig: ScheduleConfig
+    @Autowired private lateinit var scheduleConfig: ScheduleConfig
 
-    @Autowired
-    private lateinit var scheduleManager: ScheduleManager
+    @Autowired private lateinit var scheduleManager: ScheduleManager
 
     @EventListener
     fun onApplicationEvent(event: ApplicationReadyEvent) {
         logger.error("took ${event.timeTaken} to start. scheduleConfig=${scheduleConfig.hello}")
-        scheduleConfig.hello.forEach { spec ->
-            scheduleManager.scheduleHello(spec)
-        }
+        scheduleConfig.hello.forEach { spec -> scheduleManager.scheduleHello(spec) }
     }
 }

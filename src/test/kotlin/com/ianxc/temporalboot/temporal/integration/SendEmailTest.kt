@@ -12,17 +12,21 @@ import io.temporal.client.WorkflowClientOptions
 import io.temporal.testing.TestWorkflowEnvironment
 import io.temporal.testing.TestWorkflowExtension
 import io.temporal.worker.Worker
+import java.util.concurrent.TimeUnit
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Timeout
 import org.junit.jupiter.api.extension.RegisterExtension
 import strikt.api.expectThat
 import strikt.assertions.isEqualTo
 import strikt.assertions.isTrue
-import java.util.concurrent.TimeUnit
 
 class SendEmailTest {
     @Test
-    fun `test create subscription`(testEnv: TestWorkflowEnvironment, worker: Worker, workflow: SendEmailWorkflow) {
+    fun `test create subscription`(
+        testEnv: TestWorkflowEnvironment,
+        worker: Worker,
+        workflow: SendEmailWorkflow
+    ) {
         // Arrange
         worker.registerActivitiesImplementations(SendEmailActivitiesImpl())
         testEnv.start()
@@ -31,14 +35,14 @@ class SendEmailTest {
         val client = testEnv.workflowClient
 
         // Act
-        val response = client.workflowServiceStubs
-            .blockingStub()
-            .describeWorkflowExecution(
-                DescribeWorkflowExecutionRequest.newBuilder()
-                    .setNamespace(testEnv.namespace)
-                    .setExecution(execution)
-                    .build()
-            )
+        val response =
+            client.workflowServiceStubs
+                .blockingStub()
+                .describeWorkflowExecution(
+                    DescribeWorkflowExecutionRequest.newBuilder()
+                        .setNamespace(testEnv.namespace)
+                        .setExecution(execution)
+                        .build())
 
         val status = response.workflowExecutionInfo.status
 
@@ -46,12 +50,14 @@ class SendEmailTest {
         expectThat(status).isEqualTo(WorkflowExecutionStatus.WORKFLOW_EXECUTION_STATUS_RUNNING)
     }
 
-    /**
-     * This test also tests whether the QueryMethod result can be deserialized
-     */
+    /** This test also tests whether the QueryMethod result can be deserialized */
     @Test
     @Timeout(value = 30, unit = TimeUnit.SECONDS)
-    fun `test get subscription details`(testEnv: TestWorkflowEnvironment, worker: Worker, workflow: SendEmailWorkflow) {
+    fun `test get subscription details`(
+        testEnv: TestWorkflowEnvironment,
+        worker: Worker,
+        workflow: SendEmailWorkflow
+    ) {
         // Arrange
         worker.registerActivitiesImplementations(SendEmailActivitiesImpl())
         testEnv.start()
@@ -72,14 +78,14 @@ class SendEmailTest {
     companion object {
         @RegisterExtension
         @Suppress("unused")
-        val testWorkflowExtension: TestWorkflowExtension = TestWorkflowExtension.newBuilder()
-            .registerWorkflowImplementationTypes(SendEmailWorkflowImpl::class.java)
-            .setDoNotStart(true)
-            .setWorkflowClientOptions(
-                WorkflowClientOptions.newBuilder()
-                    .setDataConverter(TemporalConfig().dataConverter())
-                    .build()
-            )
-            .build()
+        val testWorkflowExtension: TestWorkflowExtension =
+            TestWorkflowExtension.newBuilder()
+                .registerWorkflowImplementationTypes(SendEmailWorkflowImpl::class.java)
+                .setDoNotStart(true)
+                .setWorkflowClientOptions(
+                    WorkflowClientOptions.newBuilder()
+                        .setDataConverter(TemporalConfig().dataConverter())
+                        .build())
+                .build()
     }
 }

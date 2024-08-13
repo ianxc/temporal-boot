@@ -15,20 +15,18 @@ import kotlin.time.toJavaDuration
 class SendEmailWorkflowImpl : SendEmailWorkflow {
     private lateinit var emailDetails: EmailDetails
 
-    private val activities = Workflow.newActivityStub(
-        SendEmailActivities::class.java,
-        ActivityOptions {
-            setStartToCloseTimeout(10.seconds.toJavaDuration())
-        }
-    )
+    private val activities =
+        Workflow.newActivityStub(
+            SendEmailActivities::class.java,
+            ActivityOptions { setStartToCloseTimeout(10.seconds.toJavaDuration()) })
 
     override fun run(data: WorkflowData) {
-        emailDetails = EmailDetails(
-            email = data.email,
-            message = "Welcome to our subscription workflow",
-            subscribed = true,
-            count = 0
-        )
+        emailDetails =
+            EmailDetails(
+                email = data.email,
+                message = "Welcome to our subscription workflow",
+                subscribed = true,
+                count = 0)
 
         while (emailDetails.subscribed) {
             emailDetails.count++
@@ -42,9 +40,8 @@ class SendEmailWorkflowImpl : SendEmailWorkflow {
             } catch (e: CanceledFailure) {
                 emailDetails.subscribed = false
                 emailDetails.message = "Sorry to see you go"
-                val sendGoodbye = Workflow.newDetachedCancellationScope {
-                    activities.sendEmail(emailDetails)
-                }
+                val sendGoodbye =
+                    Workflow.newDetachedCancellationScope { activities.sendEmail(emailDetails) }
                 sendGoodbye.run()
                 throw e
             }

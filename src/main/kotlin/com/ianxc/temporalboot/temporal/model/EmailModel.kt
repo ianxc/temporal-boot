@@ -1,8 +1,6 @@
 package com.ianxc.temporalboot.temporal.model
 
-data class WorkflowData(
-    val email: String
-)
+data class WorkflowData(val email: String)
 
 data class EmailDetails(
     val email: String,

@@ -6,7 +6,7 @@ import io.temporal.spring.boot.WorkflowImpl
 import io.temporal.workflow.Workflow
 
 @WorkflowImpl(workers = [Constants.HELLO_WORKER_NAME])
-class HelloWorkflowImpl: HelloWorkflow {
+class HelloWorkflowImpl : HelloWorkflow {
     private val logger = Workflow.getLogger(this::class.java)
 
     override fun sayHello(data: HelloData) {

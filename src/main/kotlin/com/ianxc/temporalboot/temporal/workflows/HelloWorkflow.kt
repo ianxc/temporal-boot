@@ -6,6 +6,5 @@ import io.temporal.workflow.WorkflowMethod
 
 @WorkflowInterface
 interface HelloWorkflow {
-    @WorkflowMethod
-    fun sayHello(data: HelloData)
+    @WorkflowMethod fun sayHello(data: HelloData)
 }

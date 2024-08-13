@@ -8,9 +8,7 @@ import io.temporal.workflow.WorkflowMethod
 
 @WorkflowInterface
 interface SendEmailWorkflow {
-    @WorkflowMethod
-    fun run(data: WorkflowData)
+    @WorkflowMethod fun run(data: WorkflowData)
 
-    @QueryMethod
-    fun details(): EmailDetails
+    @QueryMethod fun details(): EmailDetails
 }

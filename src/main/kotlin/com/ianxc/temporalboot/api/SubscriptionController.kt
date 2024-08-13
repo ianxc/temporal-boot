@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/subscription")
 class SubscriptionController {
 
-    @Autowired
-    private lateinit var client: WorkflowClient
+    @Autowired private lateinit var client: WorkflowClient
 
     @PostMapping("/create", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun subscribe(@RequestBody data: WorkflowData): Message {

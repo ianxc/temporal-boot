@@ -13,11 +13,12 @@ import org.springframework.context.annotation.Configuration
 class TemporalConfig {
     @Bean
     fun dataConverter(): DataConverter {
-        val jacksonObjectMapper = JacksonJsonPayloadConverter.newDefaultObjectMapper()
-            .registerKotlinModule()
+        val jacksonObjectMapper =
+            JacksonJsonPayloadConverter.newDefaultObjectMapper().registerKotlinModule()
         val jacksonConverter = JacksonJsonPayloadConverter(jacksonObjectMapper)
-        val dataConverter = DefaultDataConverter.newDefaultInstance()
-            .withPayloadConverterOverrides(jacksonConverter)
+        val dataConverter =
+            DefaultDataConverter.newDefaultInstance()
+                .withPayloadConverterOverrides(jacksonConverter)
         return dataConverter
     }
 }

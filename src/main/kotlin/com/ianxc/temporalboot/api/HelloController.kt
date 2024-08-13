@@ -15,6 +15,8 @@ import io.temporal.client.schedules.ScheduleOptions
 import io.temporal.client.schedules.SchedulePolicy
 import io.temporal.client.schedules.ScheduleSpec
 import io.temporal.client.schedules.ScheduleUpdate
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.toJavaDuration
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
@@ -24,14 +26,11 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import kotlin.time.Duration.Companion.seconds
-import kotlin.time.toJavaDuration
 
 @RestController
 @RequestMapping("/hello")
 class HelloController {
-    @Autowired
-    private lateinit var scheduleClient: ScheduleClient
+    @Autowired private lateinit var scheduleClient: ScheduleClient
 
     private val logger = LoggerFactory.getLogger(this::class.java)
 
@@ -55,40 +54,35 @@ class HelloController {
     @PostMapping("/schedule/create", produces = [MediaType.TEXT_PLAIN_VALUE])
     fun scheduleHello(@RequestParam name: String, @RequestParam seconds: Int): String {
         val helloData = HelloData(name)
-        val schedule = Schedule.newBuilder()
-            .setAction(
-                ScheduleActionStartWorkflow.newBuilder()
-                    .setWorkflowType(HelloWorkflow::class.java)
-                    .setArguments(helloData)
-                    .setOptions(
-                        WorkflowOptions.newBuilder()
-                            .setWorkflowId("hello-workflow-$name")
-                            .setTaskQueue(Constants.HELLO_TASK_QUEUE_NAME)
-                            .build()
-                    )
-                    .build()
-            )
-            .setSpec(
-                ScheduleSpec.newBuilder()
-                    .setIntervals(listOf(ScheduleIntervalSpec(seconds.seconds.toJavaDuration())))
-                    .setJitter(3.seconds.toJavaDuration())
-                    .build()
-            )
-            .setPolicy(
-                SchedulePolicy.newBuilder()
-                    .setOverlap(ScheduleOverlapPolicy.SCHEDULE_OVERLAP_POLICY_BUFFER_ONE)
-                    .build()
-            )
-            .build()
+        val schedule =
+            Schedule.newBuilder()
+                .setAction(
+                    ScheduleActionStartWorkflow.newBuilder()
+                        .setWorkflowType(HelloWorkflow::class.java)
+                        .setArguments(helloData)
+                        .setOptions(
+                            WorkflowOptions.newBuilder()
+                                .setWorkflowId("hello-workflow-$name")
+                                .setTaskQueue(Constants.HELLO_TASK_QUEUE_NAME)
+                                .build())
+                        .build())
+                .setSpec(
+                    ScheduleSpec.newBuilder()
+                        .setIntervals(
+                            listOf(ScheduleIntervalSpec(seconds.seconds.toJavaDuration())))
+                        .setJitter(3.seconds.toJavaDuration())
+                        .build())
+                .setPolicy(
+                    SchedulePolicy.newBuilder()
+                        .setOverlap(ScheduleOverlapPolicy.SCHEDULE_OVERLAP_POLICY_BUFFER_ONE)
+                        .build())
+                .build()
 
         return try {
             scheduleClient.createSchedule(
                 "hello-schedule-$name",
                 schedule,
-                ScheduleOptions.newBuilder()
-                    .setTriggerImmediately(true)
-                    .build()
-            )
+                ScheduleOptions.newBuilder().setTriggerImmediately(true).build())
             "Scheduled hello for $name every $seconds seconds"
         } catch (e: ScheduleAlreadyRunningException) {
             val scheduleHandle = scheduleClient.getHandle("hello-schedule-$name")

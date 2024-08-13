@@ -12,7 +12,8 @@ class SendEmailActivitiesImpl : SendEmailActivities {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     override fun sendEmail(emailDetails: EmailDetails) {
-        logger.atInfo()
+        logger
+            .atInfo()
             .addKeyValue("email", emailDetails.email)
             .addKeyValue("message", emailDetails.message)
             .log("sending email {} {}", emailDetails.email, emailDetails.message)
