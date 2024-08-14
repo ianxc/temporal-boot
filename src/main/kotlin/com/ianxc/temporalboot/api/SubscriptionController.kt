@@ -7,7 +7,6 @@ import com.ianxc.temporalboot.temporal.model.WorkflowData
 import com.ianxc.temporalboot.temporal.workflows.SendEmailWorkflow
 import io.temporal.client.WorkflowClient
 import io.temporal.client.WorkflowOptions
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/subscription")
-class SubscriptionController {
-
-    @Autowired private lateinit var client: WorkflowClient
+class SubscriptionController(private val client: WorkflowClient) {
 
     @PostMapping("/create", produces = [MediaType.APPLICATION_JSON_VALUE])
     fun subscribe(@RequestBody data: WorkflowData): Message {

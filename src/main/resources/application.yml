@@ -18,5 +18,5 @@ spring:
 app:
   schedules:
     hello:
-      - name: bob
+      - name: "fbb7349b-66b5-483c-a9a8-697cdbbb8123"
         cron: "7 4,10,16,22 * * *"

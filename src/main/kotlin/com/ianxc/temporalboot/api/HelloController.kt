@@ -15,10 +15,7 @@ import io.temporal.client.schedules.ScheduleOptions
 import io.temporal.client.schedules.SchedulePolicy
 import io.temporal.client.schedules.ScheduleSpec
 import io.temporal.client.schedules.ScheduleUpdate
-import kotlin.time.Duration.Companion.seconds
-import kotlin.time.toJavaDuration
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -26,12 +23,12 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.toJavaDuration
 
 @RestController
 @RequestMapping("/hello")
-class HelloController {
-    @Autowired private lateinit var scheduleClient: ScheduleClient
-
+class HelloController(private val scheduleClient: ScheduleClient) {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/{name}", produces = [MediaType.TEXT_PLAIN_VALUE])

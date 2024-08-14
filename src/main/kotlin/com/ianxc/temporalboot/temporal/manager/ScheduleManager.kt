@@ -17,14 +17,11 @@ import io.temporal.client.schedules.ScheduleUpdate
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
 import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class ScheduleManager {
+class ScheduleManager(private val scheduleClient: ScheduleClient) {
     private val logger = LoggerFactory.getLogger(this::class.java)
-
-    @Autowired private lateinit var scheduleClient: ScheduleClient
 
     fun scheduleHello(helloScheduleSpec: HelloScheduleSpec) {
         val schedule =
@@ -53,9 +50,7 @@ class ScheduleManager {
         val scheduleId = "hello-schedule-${helloScheduleSpec.name}"
         try {
             scheduleClient.createSchedule(
-                scheduleId,
-                schedule,
-                ScheduleOptions.newBuilder().setTriggerImmediately(true).build())
+                scheduleId, schedule, ScheduleOptions.newBuilder().build())
             logger.info("created new schedule $scheduleId")
         } catch (e: ScheduleAlreadyRunningException) {
             val scheduleHandle = scheduleClient.getHandle(scheduleId)
