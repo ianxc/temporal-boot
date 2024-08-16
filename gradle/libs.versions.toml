@@ -1,0 +1,34 @@
+[versions]
+guava = "33.2.1-jre"
+kotlin = "2.0.10"
+ktfmt = "0.19.0"
+spring-boot = "3.3.2"
+spring-dependency-management = "1.1.6"
+strikt = "0.35.1"
+temporal = "1.24.3"
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+
+[libraries]
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
+kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
+micrometer-tracing-bridge-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
+spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
+spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+strikt-bom = { module = "io.strikt:strikt-bom", version.ref = "strikt" }
+strikt-jackson = { module = "io.strikt:strikt-jackson" }
+strikt-jvm = { module = "io.strikt:strikt-jvm" }
+strikt-spring = { module = "io.strikt:strikt-spring" }
+temporal-kotlin = { module = "io.temporal:temporal-kotlin", version.ref = "temporal" }
+temporal-spring-boot-starter = { module = "io.temporal:temporal-spring-boot-starter", version.ref = "temporal" }

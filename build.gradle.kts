@@ -1,9 +1,9 @@
 plugins {
-    kotlin("jvm") version "2.0.10"
-    kotlin("plugin.spring") version "2.0.10"
-    id("org.springframework.boot") version "3.3.2"
-    id("io.spring.dependency-management") version "1.1.6"
-    id("com.ncorti.ktfmt.gradle") version "0.19.0"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.plugin.spring)
+    alias(libs.plugins.ktfmt)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 group = "com.ianxc"
@@ -26,30 +26,29 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.micrometer:micrometer-tracing-bridge-brave")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("io.temporal:temporal-spring-boot-starter:1.24.3")
-    implementation("io.temporal:temporal-kotlin:1.24.3")
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.micrometer.tracing.bridge.otel)
+    implementation(libs.spring.boot.starter.actuator)
+    implementation(libs.spring.boot.starter.web)
+    implementation(libs.temporal.kotlin)
+    implementation(libs.temporal.spring.boot.starter)
 
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly(libs.spring.boot.devtools)
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor(libs.spring.boot.configuration.processor)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation(platform("io.strikt:strikt-bom:0.35.1"))
-    testImplementation("io.strikt:strikt-jackson")
-    testImplementation("io.strikt:strikt-jvm")
-    testImplementation("io.strikt:strikt-spring")
+    testImplementation(libs.kotlin.test.junit5)
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(platform(libs.strikt.bom))
+    testImplementation(libs.strikt.jackson)
+    testImplementation(libs.strikt.jvm)
+    testImplementation(libs.strikt.spring)
 
-
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly(libs.junit.platform.launcher)
 
     constraints {
-        implementation("com.google.guava:guava:33.2.1-jre") {
+        implementation(libs.guava) {
             because("version pulled from temporal-spring-boot-starter includes outdated version")
         }
     }
