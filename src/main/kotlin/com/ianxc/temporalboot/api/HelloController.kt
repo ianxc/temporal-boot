@@ -15,8 +15,6 @@ import io.temporal.client.schedules.ScheduleOptions
 import io.temporal.client.schedules.SchedulePolicy
 import io.temporal.client.schedules.ScheduleSpec
 import io.temporal.client.schedules.ScheduleUpdate
-import kotlin.time.Duration.Companion.seconds
-import kotlin.time.toJavaDuration
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -25,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.toJavaDuration
 
 @RestController
 @RequestMapping("/hello")
@@ -97,12 +97,6 @@ class HelloController(private val scheduleClient: ScheduleClient) {
     @PostMapping("/schedule/delete", produces = [MediaType.TEXT_PLAIN_VALUE])
     fun deleteScheduledHello(@RequestParam name: String): String {
         val scheduleHandle = scheduleClient.getHandle("hello-schedule-$name")
-
-        scheduleHandle.update { updateInput ->
-            val schedule = Schedule.newBuilder(updateInput.description.schedule).build()
-            ScheduleUpdate(schedule)
-        }
-
         scheduleHandle.delete()
         return "Deleted schedule for $name"
     }
