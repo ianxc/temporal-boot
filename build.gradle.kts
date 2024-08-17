@@ -30,7 +30,10 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(libs.micrometer.tracing.bridge.otel)
     implementation(libs.spring.boot.starter.actuator)
-    implementation(libs.spring.boot.starter.web)
+    implementation(libs.spring.boot.starter.jetty)
+    implementation(libs.spring.boot.starter.web) {
+        exclude(module = libs.spring.boot.starter.tomcat.get().module.name)
+    }
     implementation(libs.temporal.kotlin)
     implementation(libs.temporal.spring.boot.starter)
 
