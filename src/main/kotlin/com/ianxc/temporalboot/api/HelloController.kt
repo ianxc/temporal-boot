@@ -17,6 +17,7 @@ import io.temporal.client.schedules.ScheduleSpec
 import io.temporal.client.schedules.ScheduleUpdate
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
+import net.logstash.logback.argument.StructuredArguments.kv
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -33,7 +34,7 @@ class HelloController(private val scheduleClient: ScheduleClient) {
 
     @GetMapping("/{name}", produces = [MediaType.TEXT_PLAIN_VALUE])
     fun hello(@PathVariable name: String): String {
-        logger.atInfo().addKeyValue("name", name).log("hello")
+        logger.info("hello!", kv("name", name))
         return "Hello, $name"
     }
 

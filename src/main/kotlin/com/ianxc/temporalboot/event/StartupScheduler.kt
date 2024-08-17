@@ -16,7 +16,7 @@ class StartupScheduler(
 
     @EventListener
     fun onApplicationEvent(event: ApplicationReadyEvent) {
-        logger.error("took ${event.timeTaken} to start. scheduleConfig=${scheduleConfig.hello}")
+        logger.info("took ${event.timeTaken} to start. scheduleConfig=${scheduleConfig.hello}")
         scheduleConfig.hello.forEach { spec -> scheduleManager.scheduleHello(spec) }
     }
 }

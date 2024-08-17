@@ -19,7 +19,8 @@ repositories { mavenCentral() }
 dependencies {
     implementation(libs.jackson.module.kotlin)
     implementation(libs.kotlin.reflect)
-    implementation(libs.micrometer.tracing.bridge.otel)
+    implementation(libs.logstash.logback.encoder)
+    implementation(libs.micrometer.otel)
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.jetty)
     implementation(libs.spring.boot.starter.web) {

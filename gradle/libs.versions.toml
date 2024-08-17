@@ -1,5 +1,6 @@
 [versions]
 guava = "33.2.1-jre"
+logstash-logback = "8.0"
 kotlin = "2.0.10"
 ktfmt = "0.19.0"
 spring-boot = "3.3.2"
@@ -20,7 +21,8 @@ jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
-micrometer-tracing-bridge-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
+logstash-logback-encoder = { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logstash-logback" }
+micrometer-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }

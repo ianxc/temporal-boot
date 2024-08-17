@@ -14,6 +14,8 @@ spring:
       packages:
         - com.ianxc.temporalboot.temporal.activities
         - com.ianxc.temporalboot.temporal.workflows
+    test-server:
+      enabled: true
 
 app:
   schedules:
