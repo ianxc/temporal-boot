@@ -1,7 +1,7 @@
 [versions]
 guava = "33.2.1-jre"
 logstash-logback = "8.0"
-kotlin = "2.0.10"
+kotlin = "2.0.20"
 ktfmt = "0.19.0"
 spring-boot = "3.3.2"
 spring-dependency-management = "1.1.6"
