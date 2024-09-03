@@ -18,7 +18,8 @@ class SendEmailWorkflowImpl : SendEmailWorkflow {
     private val activities =
         Workflow.newActivityStub(
             SendEmailActivities::class.java,
-            ActivityOptions { setStartToCloseTimeout(10.seconds.toJavaDuration()) })
+            ActivityOptions { setStartToCloseTimeout(10.seconds.toJavaDuration()) },
+        )
 
     override fun run(data: WorkflowData) {
         emailDetails =
@@ -26,7 +27,8 @@ class SendEmailWorkflowImpl : SendEmailWorkflow {
                 email = data.email,
                 message = "Welcome to our subscription workflow",
                 subscribed = true,
-                count = 0)
+                count = 0,
+            )
 
         while (emailDetails.subscribed) {
             emailDetails.count++

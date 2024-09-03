@@ -25,7 +25,7 @@ class SendEmailTest {
     fun `test create subscription`(
         testEnv: TestWorkflowEnvironment,
         worker: Worker,
-        workflow: SendEmailWorkflow
+        workflow: SendEmailWorkflow,
     ) {
         // Arrange
         worker.registerActivitiesImplementations(SendEmailActivitiesImpl())
@@ -56,7 +56,7 @@ class SendEmailTest {
     fun `test get subscription details`(
         testEnv: TestWorkflowEnvironment,
         worker: Worker,
-        workflow: SendEmailWorkflow
+        workflow: SendEmailWorkflow,
     ) {
         // Arrange
         worker.registerActivitiesImplementations(SendEmailActivitiesImpl())

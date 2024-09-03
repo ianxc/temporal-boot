@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 @Component
 class StartupScheduler(
     private val scheduleConfig: ScheduleConfig,
-    private val scheduleManager: ScheduleManager
+    private val scheduleManager: ScheduleManager,
 ) {
     private val logger = LoggerFactory.getLogger(this::class.java)
 

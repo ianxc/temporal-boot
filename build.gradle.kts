@@ -53,4 +53,8 @@ kotlin { compilerOptions { freeCompilerArgs.addAll("-Xjsr305=strict") } }
 
 tasks.withType<Test> { useJUnitPlatform() }
 
-ktfmt { kotlinLangStyle() }
+ktfmt {
+    blockIndent = 4
+    continuationIndent = 4
+    maxWidth = 100
+}
