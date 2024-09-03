@@ -14,6 +14,9 @@ class SendEmailActivitiesImpl : SendEmailActivities {
 
     override fun sendEmail(emailDetails: EmailDetails) {
         logger.info(
-            "sending email", kv("email", emailDetails.email), kv("message", emailDetails.message))
+            "sending email",
+            kv("email", emailDetails.email),
+            kv("message", emailDetails.message),
+        )
     }
 }

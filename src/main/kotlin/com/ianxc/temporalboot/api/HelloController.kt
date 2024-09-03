@@ -62,25 +62,31 @@ class HelloController(private val scheduleClient: ScheduleClient) {
                             WorkflowOptions.newBuilder()
                                 .setWorkflowId("hello-workflow-$name")
                                 .setTaskQueue(Constants.HELLO_TASK_QUEUE_NAME)
-                                .build())
-                        .build())
+                                .build()
+                        )
+                        .build()
+                )
                 .setSpec(
                     ScheduleSpec.newBuilder()
                         .setIntervals(
-                            listOf(ScheduleIntervalSpec(seconds.seconds.toJavaDuration())))
+                            listOf(ScheduleIntervalSpec(seconds.seconds.toJavaDuration()))
+                        )
                         .setJitter(3.seconds.toJavaDuration())
-                        .build())
+                        .build()
+                )
                 .setPolicy(
                     SchedulePolicy.newBuilder()
                         .setOverlap(ScheduleOverlapPolicy.SCHEDULE_OVERLAP_POLICY_BUFFER_ONE)
-                        .build())
+                        .build()
+                )
                 .build()
 
         return try {
             scheduleClient.createSchedule(
                 "hello-schedule-$name",
                 schedule,
-                ScheduleOptions.newBuilder().setTriggerImmediately(true).build())
+                ScheduleOptions.newBuilder().setTriggerImmediately(true).build(),
+            )
             "Scheduled hello for $name every $seconds seconds"
         } catch (e: ScheduleAlreadyRunningException) {
             val scheduleHandle = scheduleClient.getHandle("hello-schedule-$name")

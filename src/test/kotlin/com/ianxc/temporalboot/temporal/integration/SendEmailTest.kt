@@ -25,7 +25,7 @@ class SendEmailTest {
     fun `test create subscription`(
         testEnv: TestWorkflowEnvironment,
         worker: Worker,
-        workflow: SendEmailWorkflow
+        workflow: SendEmailWorkflow,
     ) {
         // Arrange
         worker.registerActivitiesImplementations(SendEmailActivitiesImpl())
@@ -42,7 +42,8 @@ class SendEmailTest {
                     DescribeWorkflowExecutionRequest.newBuilder()
                         .setNamespace(testEnv.namespace)
                         .setExecution(execution)
-                        .build())
+                        .build()
+                )
 
         val status = response.workflowExecutionInfo.status
 
@@ -56,7 +57,7 @@ class SendEmailTest {
     fun `test get subscription details`(
         testEnv: TestWorkflowEnvironment,
         worker: Worker,
-        workflow: SendEmailWorkflow
+        workflow: SendEmailWorkflow,
     ) {
         // Arrange
         worker.registerActivitiesImplementations(SendEmailActivitiesImpl())
@@ -85,7 +86,8 @@ class SendEmailTest {
                 .setWorkflowClientOptions(
                     WorkflowClientOptions.newBuilder()
                         .setDataConverter(TemporalConfig().dataConverter())
-                        .build())
+                        .build()
+                )
                 .build()
     }
 }
