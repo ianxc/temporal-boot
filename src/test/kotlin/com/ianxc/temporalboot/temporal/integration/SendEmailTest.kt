@@ -42,7 +42,8 @@ class SendEmailTest {
                     DescribeWorkflowExecutionRequest.newBuilder()
                         .setNamespace(testEnv.namespace)
                         .setExecution(execution)
-                        .build())
+                        .build()
+                )
 
         val status = response.workflowExecutionInfo.status
 
@@ -85,7 +86,8 @@ class SendEmailTest {
                 .setWorkflowClientOptions(
                     WorkflowClientOptions.newBuilder()
                         .setDataConverter(TemporalConfig().dataConverter())
-                        .build())
+                        .build()
+                )
                 .build()
     }
 }

@@ -34,23 +34,30 @@ class ScheduleManager(private val scheduleClient: ScheduleClient) {
                             WorkflowOptions.newBuilder()
                                 .setWorkflowId("hello-workflow-${helloScheduleSpec.name}")
                                 .setTaskQueue(Constants.HELLO_TASK_QUEUE_NAME)
-                                .build())
-                        .build())
+                                .build()
+                        )
+                        .build()
+                )
                 .setSpec(
                     ScheduleSpec.newBuilder()
                         .setCronExpressions(listOf(helloScheduleSpec.cron))
                         .setJitter(30.seconds.toJavaDuration())
-                        .build())
+                        .build()
+                )
                 .setPolicy(
                     SchedulePolicy.newBuilder()
                         .setOverlap(ScheduleOverlapPolicy.SCHEDULE_OVERLAP_POLICY_BUFFER_ONE)
-                        .build())
+                        .build()
+                )
                 .build()
 
         val scheduleId = "hello-schedule-${helloScheduleSpec.name}"
         try {
             scheduleClient.createSchedule(
-                scheduleId, schedule, ScheduleOptions.newBuilder().build())
+                scheduleId,
+                schedule,
+                ScheduleOptions.newBuilder().build(),
+            )
             logger.info("created new schedule $scheduleId")
         } catch (e: ScheduleAlreadyRunningException) {
             val scheduleHandle = scheduleClient.getHandle(scheduleId)
