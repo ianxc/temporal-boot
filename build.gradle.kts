@@ -19,6 +19,8 @@ repositories { mavenCentral() }
 dependencies {
     implementation(libs.jackson.module.kotlin)
     implementation(libs.kotlin.reflect)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.reactor)
     implementation(libs.logstash.logback.encoder)
     implementation(libs.micrometer.otel)
     implementation(libs.spring.boot.starter.actuator)

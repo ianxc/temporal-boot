@@ -1,6 +1,6 @@
 ###
 @name = xd2
-@seconds = 1200
+@seconds = 5
 
 POST http://localhost:8080/hello/schedule/create?
     name={{name}}&
