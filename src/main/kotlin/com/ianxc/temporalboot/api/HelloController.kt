@@ -1,5 +1,6 @@
 package com.ianxc.temporalboot.api
 
+import com.ianxc.temporalboot.service.HelloService
 import com.ianxc.temporalboot.temporal.model.Constants
 import com.ianxc.temporalboot.temporal.model.HelloData
 import com.ianxc.temporalboot.temporal.workflows.HelloWorkflow
@@ -17,7 +18,6 @@ import io.temporal.client.schedules.ScheduleSpec
 import io.temporal.client.schedules.ScheduleUpdate
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.toJavaDuration
-import net.logstash.logback.argument.StructuredArguments.kv
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
@@ -29,17 +29,19 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/hello")
-class HelloController(private val scheduleClient: ScheduleClient) {
+class HelloController(
+    private val scheduleClient: ScheduleClient,
+    private val helloService: HelloService,
+) {
     private val logger = LoggerFactory.getLogger(this::class.java)
 
     @GetMapping("/{name}", produces = [MediaType.TEXT_PLAIN_VALUE])
-    fun hello(@PathVariable name: String): String {
-        logger.info("hello!", kv("name", name))
-        return "Hello, $name"
+    suspend fun hello(@PathVariable name: String): String {
+        return helloService.makeHelloMessage(name)
     }
 
     @GetMapping("/schedule/{name}", produces = [MediaType.TEXT_PLAIN_VALUE])
-    fun getHello(@PathVariable name: String): String {
+    suspend fun getHello(@PathVariable name: String): String {
         logger.info("getting schedule $name")
         val scheduleHandle = scheduleClient.getHandle("hello-schedule-$name")
         return try {
@@ -50,7 +52,7 @@ class HelloController(private val scheduleClient: ScheduleClient) {
     }
 
     @PostMapping("/schedule/create", produces = [MediaType.TEXT_PLAIN_VALUE])
-    fun scheduleHello(@RequestParam name: String, @RequestParam seconds: Int): String {
+    suspend fun scheduleHello(@RequestParam name: String, @RequestParam seconds: Int): String {
         val helloData = HelloData(name)
         val schedule =
             Schedule.newBuilder()
@@ -102,7 +104,7 @@ class HelloController(private val scheduleClient: ScheduleClient) {
     }
 
     @PostMapping("/schedule/delete", produces = [MediaType.TEXT_PLAIN_VALUE])
-    fun deleteScheduledHello(@RequestParam name: String): String {
+    suspend fun deleteScheduledHello(@RequestParam name: String): String {
         val scheduleHandle = scheduleClient.getHandle("hello-schedule-$name")
         scheduleHandle.delete()
         return "Deleted schedule for $name"
