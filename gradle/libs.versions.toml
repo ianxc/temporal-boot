@@ -29,9 +29,7 @@ micrometer-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
 spring-boot-devtools = { module = "org.springframework.boot:spring-boot-devtools" }
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
-spring-boot-starter-jetty = { module = "org.springframework.boot:spring-boot-starter-jetty" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
-spring-boot-starter-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
 strikt-bom = { module = "io.strikt:strikt-bom", version.ref = "strikt" }
 strikt-jackson = { module = "io.strikt:strikt-jackson" }
