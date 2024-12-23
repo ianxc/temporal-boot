@@ -1,5 +1,5 @@
 [versions]
-guava = "33.3.1-jre"
+guava = "33.4.0-jre"
 logstash-logback = "8.0"
 kotlin = "2.0.21"
 kotlinx-coroutines = "1.9.0"
